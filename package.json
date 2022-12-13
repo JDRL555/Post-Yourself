@@ -1,0 +1,26 @@
+{
+  "name": "post-yourself",
+  "version": "1.0.0",
+  "description": "A React simple application, that will add post like a social network",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JDRL555/Post-Yourself.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JDRL555/Post-Yourself/issues"
+  },
+  "homepage": "https://github.com/JDRL555/Post-Yourself#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
