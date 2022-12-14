@@ -1,6 +1,6 @@
-import mysql from 'mysql'
+import mysql from 'mysql2/promise'
 
-export const connection = mysql.createConnection({
+export const connection = mysql.createPool({
   host: "localhost",
   database: "post_yourself_db",
   user: "root",
