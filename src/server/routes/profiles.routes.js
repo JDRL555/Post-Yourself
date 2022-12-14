@@ -1,5 +1,5 @@
-import { Router } from "express";
-import { createUser, getUsers, getUser } from "../controllers/register.controller.js";
+import { Router }                         from "express"
+import { createUser, getUsers, getUser }  from "../controllers/profiles.controller.js"
 
 const profilesRouter = Router()
 
