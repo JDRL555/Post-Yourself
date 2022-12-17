@@ -2,10 +2,10 @@
   "name": "post-yourself",
   "version": "1.0.0",
   "description": "A React simple application, that will add post like a social network",
-  "main": "index.js",
+  "main": "server/index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/server/index.js"
+    "dev": "nodemon server/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/JDRL555/Post-Yourself#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mysql2": "^2.3.3"

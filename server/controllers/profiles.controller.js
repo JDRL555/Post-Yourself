@@ -28,12 +28,12 @@ export const createUser = async (req, res) =>{
   const { firstName, lastName, nickName, email, password, confirmPassword } = req.body
 
   if(!firstName || !lastName || !nickName || !email || !password || !confirmPassword){
-    res.status(400).json({Error: "Please fill in all the requered fields!"})
+    res.status(400).send("Please fill in all the requered fields!")
     return
   }
   
   if(password != confirmPassword){
-    res.status(400).json({Error: "The passwords do not match!"})
+    res.status(400).send("The passwords do not match!")
     return
   }
 
@@ -42,18 +42,18 @@ export const createUser = async (req, res) =>{
   )
 
   if(isUserExists.length){
-    res.status(400).json({Error: "User already exists!"})
+    res.status(400).send("User already exists!")
     return
   }
   
   bcrypt.hash(password, 10, async (err, hash)=>{
     if(err){ 
-      res.status(400).json({Error: err}) 
-      return
+      res.status(400).send(err)
+      return 
     } 
     await connection.query(
       `INSERT INTO users(user_firstName, user_lastName, user_nickName, user_email, user_password) VALUES(?,?,?,?,?)`,[firstName, lastName, nickName, email, hash]
     )
-    res.status(201).json({message: "User register sucessful!"})
+    res.status(201).send("User register sucessful!")
   })
 }

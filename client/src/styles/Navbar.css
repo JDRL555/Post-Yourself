@@ -1,0 +1,14 @@
+ul{
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(#212147, #272858);
+}
+
+li{
+  padding-left: 3rem;
+  font-weight: lighter;
+  font-size: 1.3rem;
+}
