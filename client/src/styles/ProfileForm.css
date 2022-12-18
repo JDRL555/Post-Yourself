@@ -1,0 +1,36 @@
+form{
+  width: 50vw;
+  margin: auto;
+  text-align: center;
+}
+
+input{
+  margin: 1rem auto;
+  padding: 1rem;
+  width: 100%;
+  border: none;
+  background: none;
+  display: block;
+}
+
+input::placeholder, input, button, .login, .correct, .incorrect{
+  font-size: 1.2rem;
+}
+
+input:focus{
+  outline: none;
+  border-bottom: 2px solid white;
+}
+
+button{
+  border: none;
+  background: none;
+}
+
+.correct{
+  color: yellowgreen;
+}
+
+.incorrect{
+  color: tomato;
+}

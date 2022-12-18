@@ -1,8 +1,12 @@
 import '../styles/App.css'
 import '../styles/index.css'
+import { Navbar } from '../components/Navbar'
 
 export const Home = ()=>(
-  <main className="App">
-    <h1>Post Yourself</h1>
-  </main>
+  <>
+    <Navbar />
+    <main className="App">
+      <h1>Post Yourself</h1>
+    </main>
+  </>
 )

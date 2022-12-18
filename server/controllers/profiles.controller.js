@@ -57,3 +57,36 @@ export const createUser = async (req, res) =>{
     res.status(201).send("User register sucessful!")
   })
 }
+
+export const loginUser = async(req, res)=>{
+  const { nickName, password } = req.body
+
+  if(!nickName || !password){
+    res.status(400).send("Pleas fill in all the required fields!")
+    return
+  }
+
+  const [userQuery] = await connection.query(`SELECT * FROM users WHERE user_nickName = '${nickName}'`)
+  
+  if(!userQuery.length){
+    res.status(404).send("Wrong nickName or not exists!")
+    return
+  }
+
+  const passwordQuery = userQuery[0].user_password
+
+  bcrypt.compare(password, passwordQuery, async(err, result)=>{
+    if(err){
+      res.status(400).send(err)
+      return
+    }
+
+    if(!result){
+      res.status(400).send("Wrong password!")
+      return
+    }
+
+    res.status(200).send(`Welcome, ${userQuery[0].user_nickName}`)
+  })
+
+}

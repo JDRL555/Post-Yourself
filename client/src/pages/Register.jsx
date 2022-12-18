@@ -1,5 +1,7 @@
-import { useState } from "react"
-import { createUserRequest } from "../api/profiles.api"
+import { useState }           from "react"
+import  { Link }              from 'react-router-dom'
+import { createUserRequest }  from "../api/profiles.api"
+import                             '../styles/ProfileForm.css'
 
 async function response() {
   try {
@@ -20,6 +22,7 @@ export const Register = () => {
     confirmPassword: "",
   })
 
+  
   return (
     <main>
       <form
@@ -28,8 +31,14 @@ export const Register = () => {
           const result = document.querySelector(".result")
           try {
             const response = await createUserRequest(data)
+            result.setAttribute("class", "correct")
+            if (result.className == "incorrect") result.className = "correct"
             result.innerHTML = response.data
+            setTimeout(()=>{
+              window.location.href = "/login"
+            }, 3000)
           } catch (error) {
+            if (result.className == "correct") result.className = "incorrect" 
             result.innerHTML = error.response.data
           }
         }}
@@ -73,8 +82,9 @@ export const Register = () => {
           name="confirmPassword"
           placeholder="Confirm your password"
         />
-        <button type="submit">Enviar</button>
-        <p className="result"></p>
+        <button type="submit">Send</button> <br />
+        <Link className="login" to="/login">Have a count? Login here!</Link>
+        <p className="result incorrect"></p>
       </form>
     </main>
   )
