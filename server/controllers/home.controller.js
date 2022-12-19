@@ -4,7 +4,7 @@ export const getPosts = async (req, res)=>{
   const [ posts ] = await connection.query(`SELECT user_nickName, post_description, post_content, post_likes FROM posts`)
 
   if(!posts.length){
-    res.status(400).json({Empty: "No posts yet"})
+    res.status(204).json({Empty: "No posts yet"})
     return
   } 
 

@@ -1,5 +1,9 @@
 import { connection } from "../database/db.js";
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 export const getUsers = async (req, res) => {
   const [data] = await connection.query(`SELECT * FROM users`)
@@ -27,8 +31,15 @@ export const getUser = async (req, res) => {
 export const createUser = async (req, res) =>{
   const { firstName, lastName, nickName, email, password, confirmPassword } = req.body
 
+  const emailTest = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+
   if(!firstName || !lastName || !nickName || !email || !password || !confirmPassword){
     res.status(400).send("Please fill in all the requered fields!")
+    return
+  }
+
+  if(!emailTest.test(email)){
+    res.status(400).send("Invalid email!")
     return
   }
   
@@ -54,6 +65,7 @@ export const createUser = async (req, res) =>{
     await connection.query(
       `INSERT INTO users(user_firstName, user_lastName, user_nickName, user_email, user_password) VALUES(?,?,?,?,?)`,[firstName, lastName, nickName, email, hash]
     )
+
     res.status(201).send("User register sucessful!")
   })
 }
@@ -86,7 +98,22 @@ export const loginUser = async(req, res)=>{
       return
     }
 
+    // const token = jwt.sign(nickName, process.env.SECRET_KEY)
+    // res.cookie("token", String(token))
+    res.cookie("aasd", "asd")
     res.status(200).send(`Welcome, ${userQuery[0].user_nickName}`)
   })
 
+}
+
+export const isAuthorized = async(req, res, next)=>{
+  const { token } = req.headers
+  console.log(req.headers)
+
+  if(!token){
+    return res.status(401).send("You don't have access to this site. Please verify you have a count and come later!")
+  }
+
+  const decoded = jwt.verify(token, process.env.SECRET_KEY)
+  console.log(decoded)
 }

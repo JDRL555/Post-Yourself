@@ -5,15 +5,20 @@ form{
 }
 
 input{
-  margin: 1rem auto;
-  padding: 1rem;
+  margin: 2rem auto;
+  padding: 0.7rem;
   width: 100%;
   border: none;
   background: none;
   display: block;
 }
 
-input::placeholder, input, button, .login, .correct, .incorrect{
+input[type="password"], img{
+  display: flex;
+  
+}
+
+input::placeholder, input, button, .link, .correct, .incorrect{
   font-size: 1.2rem;
 }
 
@@ -24,7 +29,13 @@ input:focus{
 
 button{
   border: none;
+  margin-bottom: 10px;
   background: none;
+}
+
+img{
+  width: 50px;
+  height: 50px;
 }
 
 .correct{

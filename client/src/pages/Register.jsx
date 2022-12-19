@@ -1,16 +1,7 @@
-import { useState }           from "react"
+import { useState, useEffect }           from "react"
 import  { Link }              from 'react-router-dom'
 import { createUserRequest }  from "../api/profiles.api"
 import                             '../styles/ProfileForm.css'
-
-async function response() {
-  try {
-    const response = await createUserRequest()
-    console.log(response)
-  } catch (error) {
-    console.log(error)
-  }
-}
 
 export const Register = () => {
   const [data, setData] = useState({
@@ -22,7 +13,16 @@ export const Register = () => {
     confirmPassword: "",
   })
 
-  
+  const [address, setAdress]    = useState("../../public/ver.png")
+  const [passType, setPassType] = useState("password")
+
+  useEffect(()=>{
+    const img = document.querySelector(".see")
+    img.src = address
+  })
+
+  let see = false
+
   return (
     <main>
       <form
@@ -32,18 +32,18 @@ export const Register = () => {
           try {
             const response = await createUserRequest(data)
             result.setAttribute("class", "correct")
-            if (result.className == "incorrect") result.className = "correct"
+            result.className = "correct"
             result.innerHTML = response.data
             setTimeout(()=>{
               window.location.href = "/login"
             }, 3000)
           } catch (error) {
-            if (result.className == "correct") result.className = "incorrect" 
             result.innerHTML = error.response.data
           }
         }}
       >
         <h1>Register Here!</h1>
+        <p className="result incorrect"></p>
         <input
           onChange={(e) => setData({ ...data, firstName: e.target.value })}
           type="text"
@@ -70,7 +70,7 @@ export const Register = () => {
         />
         <input
           onChange={(e) => setData({ ...data, password: e.target.value })}
-          type="text"
+          type={passType}
           name="password"
           placeholder="Password"
         />
@@ -78,13 +78,22 @@ export const Register = () => {
           onChange={(e) =>
             setData({ ...data, confirmPassword: e.target.value })
           }
-          type="text"
+          type={passType}
           name="confirmPassword"
           placeholder="Confirm your password"
         />
+        <img className="see" src={address} onClick={() =>{
+          address == '../../public/ver.png' 
+            ? setAdress("../../public/ojo.png") 
+            : setAdress('../../public/ver.png')
+          
+          passType == "password" 
+          ? setPassType("text")
+          : setPassType("password")
+
+        }}/>
         <button type="submit">Send</button> <br />
-        <Link className="login" to="/login">Have a count? Login here!</Link>
-        <p className="result incorrect"></p>
+        <Link className="link" to="/login">Have a count? Login here!</Link>
       </form>
     </main>
   )

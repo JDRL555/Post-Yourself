@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { loginUserRequest } from '../api/profiles.api'
 
 export const Login = ()=>{
@@ -8,16 +8,23 @@ export const Login = ()=>{
     nickName: "",
     password: ""
   })
+  const [address, setAdress]    = useState("../../public/ver.png")
+  const [passType, setPassType] = useState("password")
+
+  useEffect(()=>{
+    const img = document.querySelector(".see")
+    img.src = address
+  })
 
   return(
     <main>
-      <h1>Login here!</h1>
       <form
         onSubmit={async e=>{
           e.preventDefault()
           const result = document.querySelector(".result")
           try {
             const response = await loginUserRequest(data)
+            result.className = "correct"
             result.innerHTML = response.data
             setTimeout(()=>{
               window.location.href = "/"
@@ -27,22 +34,34 @@ export const Login = ()=>{
           }
         }}
       >
-    
+        <h1>Login here!</h1>
+        <p className="result incorrect"></p>
         <input
         onChange={e=> setData({...data, nickName: e.target.value})} 
         type="text" 
         name="nickName" 
-        placeholder="write your nickname" 
+        placeholder="Nick name" 
         /> 
 
         <input 
         onChange={e=> setData({...data, password: e.target.value})} 
-        type="password" name="password" 
-        placeholder="write your password" />
+        type={passType} 
+        name="password" 
+        placeholder="Password" />
 
-        <button type='submit'>Login</button>
-        <Link to='/register'>Don't have a count? Register here!</Link>
-        <p className='result'></p>
+        <img className="see" src={address} onClick={() =>{
+          address == '../../public/ver.png' 
+            ? setAdress("../../public/ojo.png") 
+            : setAdress('../../public/ver.png')
+          
+          passType == "password" 
+          ? setPassType("text")
+          : setPassType("password")
+
+        }}/>
+
+        <button type='submit'>Login</button> <br />
+        <Link className='link' to='/register'>Don't have a count? Register here!</Link>
       </form>
     </main>
   )
