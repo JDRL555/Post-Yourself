@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { isAuthorized } from "../controllers/profiles.controller.js";
+import { isAuthorized } from "../controllers/authorized.controller.js";
 import { getPosts, createPost } from "../controllers/home.controller.js";
 
 

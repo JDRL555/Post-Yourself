@@ -1,18 +1,37 @@
-import '../styles/App.css'
-import '../styles/index.css'
-import '../styles/Home.css'
+import './styles/App.css'
+import './styles/index.css'
+import './styles/Home.css'
 import { useState, useEffect } from 'react'
+import Swal from 'sweetalert2'
 import { Navbar } from '../components/Navbar'
 import { NewPost } from '../components/NewPost'
-import { getPostsRequest } from "../api/post.api.js"
+import { getPostsRequest, isAuthorizedRequest } from "../api/home.api.js"
 
 export const Home = ()=>{
+  const token = localStorage.getItem("session")
   let [data, setData] = useState([])
   
   useEffect(()=>{
+    async function result(){
+      try {
+        const response = await isAuthorizedRequest(token)
+        console.log("hola")
+        console.log(response)
+      } catch (err) {
+        console.log(err.response)
+        console.log("adios")
+        Swal.fire({
+          icon: "error",
+          "title": "Sorry, you don't have access here!",
+          "text": err.response.data
+        }).then(() => Swal.fire("Get the f*ck out of here;)"))
+      }
+    }
+    result()
     async function posts(){
-      const response = await getPostsRequest()
-      data = response.data
+      const {data} = await getPostsRequest()
+      setData(data)
+      console.log(data)
     }
     posts()
   })

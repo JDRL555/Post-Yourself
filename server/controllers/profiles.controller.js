@@ -34,18 +34,15 @@ export const createUser = async (req, res) =>{
   const emailTest = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 
   if(!firstName || !lastName || !nickName || !email || !password || !confirmPassword){
-    res.status(400).send("Please fill in all the requered fields!")
-    return
+    return res.status(400).json({message: "Please fill in all the requered fields!"})
   }
 
   if(!emailTest.test(email)){
-    res.status(400).send("Invalid email!")
-    return
+    return res.status(400).send("Invalid email!")
   }
   
   if(password != confirmPassword){
-    res.status(400).send("The passwords do not match!")
-    return
+    return res.status(400).send("The passwords do not match!")
   }
 
   const [isUserExists] = await connection.query(
@@ -53,14 +50,12 @@ export const createUser = async (req, res) =>{
   )
 
   if(isUserExists.length){
-    res.status(400).send("User already exists!")
-    return
+    return res.status(400).json({message: "User already exists!"})
   }
   
   bcrypt.hash(password, 10, async (err, hash)=>{
     if(err){ 
-      res.status(400).send(err)
-      return 
+      return res.status(400).send(err)
     } 
     await connection.query(
       `INSERT INTO users(user_firstName, user_lastName, user_nickName, user_email, user_password) VALUES(?,?,?,?,?)`,[firstName, lastName, nickName, email, hash]
@@ -74,46 +69,32 @@ export const loginUser = async(req, res)=>{
   const { nickName, password } = req.body
 
   if(!nickName || !password){
-    res.status(400).send("Pleas fill in all the required fields!")
-    return
+    return res.status(400).json({message: "Pleas fill in all the required fields!"})
   }
 
   const [userQuery] = await connection.query(`SELECT * FROM users WHERE user_nickName = '${nickName}'`)
   
   if(!userQuery.length){
-    res.status(404).send("Wrong nickName or not exists!")
-    return
+    return res.status(404).json({message: "Wrong nickName or not exists!"})
   }
 
   const passwordQuery = userQuery[0].user_password
 
   bcrypt.compare(password, passwordQuery, async(err, result)=>{
     if(err){
-      res.status(400).send(err)
-      return
+      return res.status(400).json({err})
     }
 
     if(!result){
-      res.status(400).send("Wrong password!")
-      return
+      return res.status(400).json({message: "Wrong password!"})
     }
 
-    // const token = jwt.sign(nickName, process.env.SECRET_KEY)
-    // res.cookie("token", String(token))
-    res.cookie("aasd", "asd")
-    res.status(200).send(`Welcome, ${userQuery[0].user_nickName}`)
+    const token = jwt.sign(nickName, process.env.SECRET_KEY)
+    console.log(token)
+    res.status(200).json({
+      message: `Welcome, ${userQuery[0].user_nickName}`,
+      token
+    })
   })
 
-}
-
-export const isAuthorized = async(req, res, next)=>{
-  const { token } = req.headers
-  console.log(req.headers)
-
-  if(!token){
-    return res.status(401).send("You don't have access to this site. Please verify you have a count and come later!")
-  }
-
-  const decoded = jwt.verify(token, process.env.SECRET_KEY)
-  console.log(decoded)
 }

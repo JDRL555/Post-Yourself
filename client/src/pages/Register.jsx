@@ -1,7 +1,7 @@
-import { useState, useEffect }           from "react"
-import  { Link }              from 'react-router-dom'
-import { createUserRequest }  from "../api/profiles.api"
-import                             '../styles/ProfileForm.css'
+import { useState }  from "react"
+import  { Link }                from 'react-router-dom'
+import { createUserRequest }    from "../api/profiles.api"
+import                               './styles/ProfileForm.css'
 
 export const Register = () => {
   const [data, setData] = useState({
@@ -12,16 +12,6 @@ export const Register = () => {
     password: "",
     confirmPassword: "",
   })
-
-  const [address, setAdress]    = useState("../../public/ver.png")
-  const [passType, setPassType] = useState("password")
-
-  useEffect(()=>{
-    const img = document.querySelector(".see")
-    img.src = address
-  })
-
-  let see = false
 
   return (
     <main>
@@ -70,7 +60,7 @@ export const Register = () => {
         />
         <input
           onChange={(e) => setData({ ...data, password: e.target.value })}
-          type={passType}
+          type="password"
           name="password"
           placeholder="Password"
         />
@@ -78,20 +68,10 @@ export const Register = () => {
           onChange={(e) =>
             setData({ ...data, confirmPassword: e.target.value })
           }
-          type={passType}
+          type="password"
           name="confirmPassword"
           placeholder="Confirm your password"
         />
-        <img className="see" src={address} onClick={() =>{
-          address == '../../public/ver.png' 
-            ? setAdress("../../public/ojo.png") 
-            : setAdress('../../public/ver.png')
-          
-          passType == "password" 
-          ? setPassType("text")
-          : setPassType("password")
-
-        }}/>
         <button type="submit">Send</button> <br />
         <Link className="link" to="/login">Have a count? Login here!</Link>
       </form>

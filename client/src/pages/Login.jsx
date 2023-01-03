@@ -8,13 +8,6 @@ export const Login = ()=>{
     nickName: "",
     password: ""
   })
-  const [address, setAdress]    = useState("../../public/ver.png")
-  const [passType, setPassType] = useState("password")
-
-  useEffect(()=>{
-    const img = document.querySelector(".see")
-    img.src = address
-  })
 
   return(
     <main>
@@ -23,14 +16,15 @@ export const Login = ()=>{
           e.preventDefault()
           const result = document.querySelector(".result")
           try {
-            const response = await loginUserRequest(data)
+            const {data: {message, token}} = await loginUserRequest(data)
+            localStorage.setItem("session", token)
             result.className = "correct"
-            result.innerHTML = response.data
+            result.innerHTML = message
             setTimeout(()=>{
               window.location.href = "/"
             }, 3000)
           } catch (error) {
-            result.innerHTML = error.response.data
+            result.innerHTML = error.response.data.message
           }
         }}
       >
@@ -45,20 +39,9 @@ export const Login = ()=>{
 
         <input 
         onChange={e=> setData({...data, password: e.target.value})} 
-        type={passType} 
+        type="password" 
         name="password" 
         placeholder="Password" />
-
-        <img className="see" src={address} onClick={() =>{
-          address == '../../public/ver.png' 
-            ? setAdress("../../public/ojo.png") 
-            : setAdress('../../public/ver.png')
-          
-          passType == "password" 
-          ? setPassType("text")
-          : setPassType("password")
-
-        }}/>
 
         <button type='submit'>Login</button> <br />
         <Link className='link' to='/register'>Don't have a count? Register here!</Link>
