@@ -92,7 +92,7 @@ export const loginUser = async(req, res)=>{
     const token = jwt.sign(nickName, process.env.SECRET_KEY)
     console.log(token)
     res.status(200).json({
-      message: `Welcome, ${userQuery[0].user_nickName}`,
+      message: `Accessing...`,
       token
     })
   })

@@ -2,15 +2,18 @@ import jwt from 'jsonwebtoken'
 
 export const isAuthorized = (req, res, next)=>{
   const token = req.headers.token
-  console.log(token)
 
-  jwt.verify(token, process.env.SECRET_KEY, (err, decoded)=>{
-    if(err) {
-      console.log(`El error es el siguiente: ${err.message}`)
-      return res.status(401).send("You don't have access to this site. Please verify you have a count and come later!")
+  try {
+    const response = jwt.verify(token, process.env.SECRET_KEY)
+    res.status(200).send(response)
+  } catch (error) {
+
+    if(error == "JsonWebTokenError: jwt must be provided"){
+      res.send(401).send("You need an acount to visite the site!")
     }
 
-    res.status(200).send(`Welcome, ${decoded}`)
-    next()
-  })
+    if(error == "JsonWebTokenError: jwt malformed"){
+      res.status(401).send("Invalid user. Please login with some valid acount!")
+    }
+  }
 }

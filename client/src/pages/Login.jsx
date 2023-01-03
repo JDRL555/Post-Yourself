@@ -24,6 +24,7 @@ export const Login = ()=>{
               window.location.href = "/"
             }, 3000)
           } catch (error) {
+            console.log(error)
             result.innerHTML = error.response.data.message
           }
         }}
