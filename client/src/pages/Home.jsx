@@ -22,16 +22,10 @@ export const Home = ()=>{
           icon: "error",
           "title": "Sorry, you don't have access here!",
           "text": err.response.data
-        }).then(() => window.location.href = "/login")
+        }).then(() => window.location.href = "/")
       }
     }
     result()
-    // async function posts(){
-    //   const {data} = await getPostsRequest()
-    //   setData(data)
-    //   console.log(data)
-    // }
-    // posts()
   })
 
   return (

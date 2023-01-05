@@ -1,0 +1,25 @@
+#img{
+  position: relative;
+  bottom: 70px;
+  width: 100vw;
+  height: auto;
+  z-index: -1;
+  filter: brightness(0.5);
+}
+
+.gretting{
+  border-radius: 10px;
+  position: relative;
+  bottom: 65rem;
+  float: right;
+  text-align: center;
+  width: 35rem;
+  margin-right: 3rem;
+  padding-block: 5rem;
+}
+
+.gretting p{
+  text-align: justify;
+  margin: 1rem;
+  font-size: 17px;
+}

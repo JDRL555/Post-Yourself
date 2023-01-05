@@ -1,6 +1,6 @@
 :root {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -15,11 +15,12 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #c7caf7;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  transition: 0.5s;
+  color: #f8f8f8;
 }
 
 body {
