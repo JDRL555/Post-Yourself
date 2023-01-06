@@ -2,12 +2,11 @@ import './styles/App.css'
 import './styles/index.css'
 import './styles/Home.css'
 import { useState, useEffect } from 'react'
-import Swal from 'sweetalert2'
 import { Navbar } from '../components/Navbar'
 import { NewPost } from '../components/NewPost'
 import { getPostsRequest, isAuthorizedRequest } from "../api/home.api.js"
 
-export const Home = ()=>{
+export const Posts = ()=>{
   const token = localStorage.getItem("session")
   let [user, setUser] = useState("")
   
@@ -18,11 +17,6 @@ export const Home = ()=>{
         setUser(data)
       } catch (err) {
         console.log(err)
-        Swal.fire({
-          icon: "error",
-          "title": "Sorry, you don't have access here!",
-          "text": err.response.data
-        }).then(() => window.location.href = "/")
       }
     }
     result()

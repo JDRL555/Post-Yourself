@@ -28,7 +28,7 @@ export const Register = () => {
               window.location.href = "/login"
             }, 3000)
           } catch (error) {
-            result.innerHTML = error.response.data
+            result.innerHTML = error.response.data.message
           }
         }}
       >

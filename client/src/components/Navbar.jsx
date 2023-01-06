@@ -9,6 +9,16 @@ export const Navbar = ({username}) => (
       <li> <Link to="/register">Register</Link></li>
       <li> <Link to="/login">Login</Link></li>
       <li> <Link to='/posts'>Posts</Link></li>
+      {
+        username 
+        ? <li className='profile'> 
+            <i>{username}</i>
+            <Link to='/profile'>See my posts</Link> 
+            <li>Config</li> 
+            <li>Log out</li> 
+          </li> 
+        : ""
+      }
     </ul>
   </div>
 )

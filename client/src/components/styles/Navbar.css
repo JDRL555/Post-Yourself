@@ -6,6 +6,10 @@ ul{
   padding: 0;
 }
 
+.profile{
+  border: 1px solid black;
+}
+
 li{
   padding-left: 3rem;
   font-weight: lighter;
