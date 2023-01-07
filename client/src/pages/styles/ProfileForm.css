@@ -22,6 +22,10 @@ input::placeholder, input, button, .link, .correct, .incorrect{
   font-size: 1.2rem;
 }
 
+input::placeholder{
+  color: rgb(175, 175, 175);
+}
+
 input:focus{
   outline: none;
   border-bottom: 2px solid white;
@@ -38,7 +42,7 @@ button{
 
 button:hover{
   transition: 0.5s;
-  background-color: #6365df;
+  background-color: #79bfc5;
   color: rgb(0, 0, 0);
 }
 

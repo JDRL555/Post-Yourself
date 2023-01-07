@@ -12,7 +12,7 @@ export const Index = () => {
         const {data} = await isAuthorizedRequest(token)
         setUser(data)
         if(user){
-          window.location.href = "/profile"
+          window.location.href = "/posts"
         }
       } catch (err) {
         console.log(err)

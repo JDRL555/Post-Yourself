@@ -21,7 +21,7 @@ export const Login = ()=>{
             result.className = "correct"
             result.innerHTML = message
             setTimeout(()=>{
-              window.location.href = "/"
+              window.location.href = "/posts"
             }, 3000)
           } catch (error) {
             console.log(error)

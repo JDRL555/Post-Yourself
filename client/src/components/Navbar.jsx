@@ -1,24 +1,23 @@
 import {Link} from 'react-router-dom'
 import './styles/Navbar.css'
 
-export const Navbar = ({username}) => (
+export const Navbar = ({username}) => {
+  const {nickName, userId} = username
+  return (
   <div className="navbar">
     <ul>
-      <li> <h3>Welcome{username ? `, ${username}` : ""}</h3></li>
-      <li> <Link to="/">Home</Link></li>
-      <li> <Link to="/register">Register</Link></li>
-      <li> <Link to="/login">Login</Link></li>
-      <li> <Link to='/posts'>Posts</Link></li>
+      <li> <h3>Welcome{nickName ? `, ${nickName}` : ""}</h3></li>
       {
-        username 
-        ? <li className='profile'> 
-            <i>{username}</i>
-            <Link to='/profile'>See my posts</Link> 
-            <li>Config</li> 
-            <li>Log out</li> 
-          </li> 
-        : ""
+        !nickName ?
+        <>
+          <li> <Link to="/">Home</Link></li>
+          <li> <Link to="/register">Register</Link></li>
+          <li> <Link to="/login">Login</Link></li>
+        </>
+        : ""  
       }
+      <li> <Link to='/posts'>Posts</Link></li>
+      { nickName ? <li> <Link to='/profile'>{nickName}</Link> </li>: "" }
     </ul>
   </div>
-)
+)}

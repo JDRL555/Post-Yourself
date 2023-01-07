@@ -17,7 +17,7 @@ export const getUsers = async (req, res) => {
 }
 
 export const getUser = async (req, res) => {
-  const { id } = req.params
+  const id = req.headers.userid
   const [userFound] = await connection.query(`SELECT * FROM users WHERE user_id = "${id}"`)
   
   if(!userFound.length){
@@ -89,7 +89,10 @@ export const loginUser = async(req, res)=>{
       return res.status(400).json({message: "Wrong password!"})
     }
 
-    const token = jwt.sign(nickName, process.env.SECRET_KEY)
+    const userId = userQuery[0].user_id
+    console.log(userId)
+
+    const token = jwt.sign({userId, nickName}, process.env.SECRET_KEY)
     console.log(token)
     res.status(200).json({
       message: `Accessing...`,

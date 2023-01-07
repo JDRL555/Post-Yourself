@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { isAuthorizedRequest } from '../api/home.api'
+import Swal from 'sweetalert2'
+import { getUserRequest } from '../api/profiles.api'
+import { ProfileHeader } from '../components/ProfileHeader'
 
 export const Profile = () => {
   const token = localStorage.getItem("session")
-  let [user, setUser] = useState("")
+  let [user, setUser] = useState({})
   
   useEffect(()=>{
     async function result(){
       try {
         const {data} = await isAuthorizedRequest(token)
-        setUser(data)
+        const { userId } = data
+        const userRequest = await getUserRequest(userId)
+        setUser(userRequest.data)
       } catch (err) {
         console.log(err)
         Swal.fire({
@@ -22,6 +27,6 @@ export const Profile = () => {
     result()
   })
   return (
-    <div>Profile</div>
+    <ProfileHeader username={user} />
   )
 }

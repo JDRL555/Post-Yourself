@@ -8,7 +8,7 @@ import { getPostsRequest, isAuthorizedRequest } from "../api/home.api.js"
 
 export const Posts = ()=>{
   const token = localStorage.getItem("session")
-  let [user, setUser] = useState("")
+  let [user, setUser] = useState({})
   
   useEffect(()=>{
     async function result(){

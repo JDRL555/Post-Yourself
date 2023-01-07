@@ -4,7 +4,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background: linear-gradient(#4b4caa, #11122c);
+  background: linear-gradient(#5393c7, #13303d);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,7 +15,7 @@
 
 a {
   font-weight: 500;
-  color: #c7caf7;
+  color: #c7daf7;
   text-decoration: inherit;
 }
 a:hover {
